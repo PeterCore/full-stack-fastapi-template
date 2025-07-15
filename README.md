@@ -52,6 +52,47 @@
 
 [![API docs](img/docs.png)](https://github.com/fastapi/full-stack-fastapi-template)
 
+## 🚀 快速开始
+
+### 一键本地部署 (推荐)
+
+如果你想要快速在本地运行这个项目，我们提供了一键部署脚本：
+
+```bash
+# 克隆项目
+git clone <your-repository-url>
+cd rabbit_admin
+
+# 一键部署
+bash scripts/deploy-local.sh
+```
+
+部署完成后，你可以访问：
+- **Backend API**: http://localhost:8000
+- **API 文档**: http://localhost:8000/docs
+- **健康检查**: http://localhost:8000/api/v1/utils/health-check/
+
+### 管理命令
+
+```bash
+# 检查服务状态
+bash scripts/status-local.sh
+
+# 停止所有服务
+bash scripts/stop-local.sh
+
+# 重新部署
+bash scripts/deploy-local.sh
+```
+
+### 详细部署文档
+
+如果你需要更详细的部署说明或遇到问题，请查看：
+- [完整部署指南](./DEPLOYMENT_README.md)
+- [原始部署文档](./deployment.md)
+
+---
+
 ## How To Use It
 
 You can **just fork or clone** this repository and use it as is.

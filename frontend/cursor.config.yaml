@@ -1,0 +1,19 @@
+# cursor.config.yaml
+projectType: react # 项目类型
+alias:
+  "@": "src" # 如果你在 tsconfig/webpack 中使用了 @ 别名
+dependencies:
+  - "react"
+  - "react-dom"
+  - "next"
+  - "chakra-ui/react"
+  - "@tanstack/react-query"
+  - "@tanstack/react-query-devtools"
+  - "@tanstack/react-router"
+  - "axios"
+  - "form-data"
+  - "next-themes"
+  - "react-error-boundary"
+componentPaths:
+  - src/components # 让 Cursor 索引这个目录下的所有组件
+

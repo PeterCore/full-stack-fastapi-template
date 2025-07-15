@@ -17,8 +17,13 @@ import { Route as RecoverPasswordImport } from './routes/recover-password'
 import { Route as LoginImport } from './routes/login'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
+import { Route as LayoutTeachersImport } from './routes/_layout/teachers'
+import { Route as LayoutSubjectsImport } from './routes/_layout/subjects'
+import { Route as LayoutStudentsImport } from './routes/_layout/students'
 import { Route as LayoutSettingsImport } from './routes/_layout/settings'
+import { Route as LayoutSchedulesImport } from './routes/_layout/schedules'
 import { Route as LayoutItemsImport } from './routes/_layout/items'
+import { Route as LayoutCoursesImport } from './routes/_layout/courses'
 import { Route as LayoutAdminImport } from './routes/_layout/admin'
 
 // Create/Update Routes
@@ -53,13 +58,38 @@ const LayoutIndexRoute = LayoutIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutTeachersRoute = LayoutTeachersImport.update({
+  path: '/teachers',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutSubjectsRoute = LayoutSubjectsImport.update({
+  path: '/subjects',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutStudentsRoute = LayoutStudentsImport.update({
+  path: '/students',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutSettingsRoute = LayoutSettingsImport.update({
   path: '/settings',
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutSchedulesRoute = LayoutSchedulesImport.update({
+  path: '/schedules',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutItemsRoute = LayoutItemsImport.update({
   path: '/items',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutCoursesRoute = LayoutCoursesImport.update({
+  path: '/courses',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -96,12 +126,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAdminImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/courses': {
+      preLoaderRoute: typeof LayoutCoursesImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/items': {
       preLoaderRoute: typeof LayoutItemsImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/schedules': {
+      preLoaderRoute: typeof LayoutSchedulesImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/settings': {
       preLoaderRoute: typeof LayoutSettingsImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/students': {
+      preLoaderRoute: typeof LayoutStudentsImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/subjects': {
+      preLoaderRoute: typeof LayoutSubjectsImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/teachers': {
+      preLoaderRoute: typeof LayoutTeachersImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/': {
@@ -116,8 +166,13 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   LayoutRoute.addChildren([
     LayoutAdminRoute,
+    LayoutCoursesRoute,
     LayoutItemsRoute,
+    LayoutSchedulesRoute,
     LayoutSettingsRoute,
+    LayoutStudentsRoute,
+    LayoutSubjectsRoute,
+    LayoutTeachersRoute,
     LayoutIndexRoute,
   ]),
   LoginRoute,

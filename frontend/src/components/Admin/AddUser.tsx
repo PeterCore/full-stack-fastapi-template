@@ -1,10 +1,10 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Controller, type SubmitHandler, useForm } from "react-hook-form"
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 
-import { type UserCreate, UsersService } from "@/client"
-import type { ApiError } from "@/client/core/ApiError"
-import useCustomToast from "@/hooks/useCustomToast"
-import { emailPattern, handleError } from "@/utils"
+import { type UserCreate, UsersService } from "@/client";
+import type { ApiError } from "@/client/core/ApiError";
+import useCustomToast from "@/hooks/useCustomToast";
+import { emailPattern, handleError } from "@/utils";
 import {
   Button,
   DialogActionTrigger,
@@ -13,10 +13,10 @@ import {
   Input,
   Text,
   VStack,
-} from "@chakra-ui/react"
-import { useState } from "react"
-import { FaPlus } from "react-icons/fa"
-import { Checkbox } from "../ui/checkbox"
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { FaPlus } from "react-icons/fa";
+import { Checkbox } from "../ui/checkbox";
 import {
   DialogBody,
   DialogCloseTrigger,
@@ -25,17 +25,17 @@ import {
   DialogHeader,
   DialogRoot,
   DialogTrigger,
-} from "../ui/dialog"
-import { Field } from "../ui/field"
+} from "../ui/dialog";
+import { Field } from "../ui/field";
 
 interface UserCreateForm extends UserCreate {
-  confirm_password: string
+  confirm_password: string;
 }
 
 const AddUser = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const queryClient = useQueryClient()
-  const { showSuccessToast } = useCustomToast()
+  const [isOpen, setIsOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const { showSuccessToast } = useCustomToast();
   const {
     control,
     register,
@@ -54,27 +54,27 @@ const AddUser = () => {
       is_superuser: false,
       is_active: false,
     },
-  })
+  });
 
   const mutation = useMutation({
     mutationFn: (data: UserCreate) =>
       UsersService.createUser({ requestBody: data }),
     onSuccess: () => {
-      showSuccessToast("User created successfully.")
-      reset()
-      setIsOpen(false)
+      showSuccessToast("User created successfully.");
+      reset();
+      setIsOpen(false);
     },
     onError: (err: ApiError) => {
-      handleError(err)
+      handleError(err);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] })
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
-  })
+  });
 
   const onSubmit: SubmitHandler<UserCreateForm> = (data) => {
-    mutation.mutate(data)
-  }
+    mutation.mutate(data);
+  };
 
   return (
     <DialogRoot
@@ -86,24 +86,22 @@ const AddUser = () => {
       <DialogTrigger asChild>
         <Button value="add-user" my={4}>
           <FaPlus fontSize="16px" />
-          Add User
+          添加用户
         </Button>
       </DialogTrigger>
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
-            <DialogTitle>Add User</DialogTitle>
+            <DialogTitle>添加用户</DialogTitle>
           </DialogHeader>
           <DialogBody>
-            <Text mb={4}>
-              Fill in the form below to add a new user to the system.
-            </Text>
+            <Text mb={4}>请填写以下表单以添加新用户。</Text>
             <VStack gap={4}>
               <Field
                 required
                 invalid={!!errors.email}
                 errorText={errors.email?.message}
-                label="Email"
+                label="邮箱"
               >
                 <Input
                   id="email"
@@ -111,7 +109,7 @@ const AddUser = () => {
                     required: "Email is required",
                     pattern: emailPattern,
                   })}
-                  placeholder="Email"
+                  placeholder="邮箱"
                   type="email"
                 />
               </Field>
@@ -119,7 +117,7 @@ const AddUser = () => {
               <Field
                 invalid={!!errors.full_name}
                 errorText={errors.full_name?.message}
-                label="Full Name"
+                label="姓名"
               >
                 <Input
                   id="name"
@@ -133,7 +131,7 @@ const AddUser = () => {
                 required
                 invalid={!!errors.password}
                 errorText={errors.password?.message}
-                label="Set Password"
+                label="设置密码"
               >
                 <Input
                   id="password"
@@ -144,7 +142,7 @@ const AddUser = () => {
                       message: "Password must be at least 8 characters",
                     },
                   })}
-                  placeholder="Password"
+                  placeholder="密码"
                   type="password"
                 />
               </Field>
@@ -153,7 +151,7 @@ const AddUser = () => {
                 required
                 invalid={!!errors.confirm_password}
                 errorText={errors.confirm_password?.message}
-                label="Confirm Password"
+                label="确认密码"
               >
                 <Input
                   id="confirm_password"
@@ -163,7 +161,7 @@ const AddUser = () => {
                       value === getValues().password ||
                       "The passwords do not match",
                   })}
-                  placeholder="Password"
+                  placeholder="密码"
                   type="password"
                 />
               </Field>
@@ -179,7 +177,7 @@ const AddUser = () => {
                       checked={field.value}
                       onCheckedChange={({ checked }) => field.onChange(checked)}
                     >
-                      Is superuser?
+                      是否为超级管理员
                     </Checkbox>
                   </Field>
                 )}
@@ -193,7 +191,7 @@ const AddUser = () => {
                       checked={field.value}
                       onCheckedChange={({ checked }) => field.onChange(checked)}
                     >
-                      Is active?
+                      是否激活
                     </Checkbox>
                   </Field>
                 )}
@@ -208,7 +206,7 @@ const AddUser = () => {
                 colorPalette="gray"
                 disabled={isSubmitting}
               >
-                Cancel
+                取消
               </Button>
             </DialogActionTrigger>
             <Button
@@ -217,14 +215,14 @@ const AddUser = () => {
               disabled={!isValid}
               loading={isSubmitting}
             >
-              Save
+              保存
             </Button>
           </DialogFooter>
         </form>
         <DialogCloseTrigger />
       </DialogContent>
     </DialogRoot>
-  )
-}
+  );
+};
 
-export default AddUser
+export default AddUser;
